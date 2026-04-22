@@ -17,7 +17,7 @@ use Illuminate\Support\ServiceProvider;
 class AppServiceProvider extends ServiceProvider
 {
     public function register(): void
-    {
+    { 
         // Neon SNI workaround for hosts with old libpq (e.g. Hostinger shared hosting).
         // If DB_NEON_ENDPOINT is set, appends options='endpoint=...' to the PostgreSQL DSN
         // so Neon can identify the endpoint without needing SNI support.
