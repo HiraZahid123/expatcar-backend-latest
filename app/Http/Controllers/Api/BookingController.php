@@ -16,12 +16,15 @@ class BookingController extends Controller
     public function store(Request $request): JsonResponse
     {
         $validated = $request->validate([
-            'variant_id' => 'required|integer|exists:variants,id',
-            'mileage'    => 'required|integer|min:0|max:500000',
-            'name'       => 'required|string|max:150',
-            'phone'      => ['required', 'string', 'max:20', 'regex:/^\+?[0-9\s\-]{7,20}$/'],
-            'email'      => 'required|email:rfc,dns|max:200',
-            'utm_data'   => 'nullable|array',
+            'variant_id'      => 'required|integer|exists:variants,id',
+            'mileage'         => 'required|string|max:100',
+            'specs'           => 'required|string|max:50',
+            'car_option'      => 'required|string|max:50',
+            'paint_condition' => 'required|string|max:50',
+            'name'            => 'required|string|max:150',
+            'phone'           => ['required', 'string', 'max:20', 'regex:/^\+?[0-9\s\-]{7,20}$/'],
+            'email'           => 'required|email:rfc,dns|max:200',
+            'utm_data'        => 'nullable|array',
         ]);
 
         $variant = Variant::with('model.make')->findOrFail($validated['variant_id']);
@@ -33,17 +36,20 @@ class BookingController extends Controller
                 'variant_id' => $validated['variant_id'],
             ],
             [
-                'make_name'    => $variant->model->make->name,
-                'model_name'   => $variant->model->name,
-                'variant_name' => $variant->name,
-                'year'         => $variant->year,
-                'mileage'      => $validated['mileage'],
-                'name'         => $validated['name'],
-                'email'        => $validated['email'],
-                'utm_data'     => $validated['utm_data'] ?? null,
-                'ip_address'   => $request->ip(),
-                'user_agent'   => $request->userAgent(),
-                'status'       => 'pending',
+                'make_name'       => $variant->model->make->name,
+                'model_name'      => $variant->model->name,
+                'variant_name'    => $variant->name,
+                'year'            => $variant->year,
+                'mileage'         => $validated['mileage'],
+                'specs'           => $validated['specs'],
+                'car_option'      => $validated['car_option'],
+                'paint_condition' => $validated['paint_condition'],
+                'name'            => $validated['name'],
+                'email'           => $validated['email'],
+                'utm_data'        => $validated['utm_data'] ?? null,
+                'ip_address'      => $request->ip(),
+                'user_agent'      => $request->userAgent(),
+                'status'          => 'pending',
             ]
         );
 

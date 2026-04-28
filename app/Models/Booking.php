@@ -15,6 +15,9 @@ class Booking extends Model
         'variant_name',
         'year',
         'mileage',
+        'specs',
+        'car_option',
+        'paint_condition',
         'name',
         'phone',
         'email',
@@ -33,7 +36,6 @@ class Booking extends Model
         'utm_data'       => 'array',
         'status_history' => 'array',
         'year'           => 'integer',
-        'mileage'        => 'integer',
     ];
 
     // ── Relationships ────────────────────────────────────────
